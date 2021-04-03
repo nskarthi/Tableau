@@ -1,16 +1,13 @@
 use employees_mod;
-select year(de.from_date) as yer, e.gender, count(e.emp_no) as gen
+
+/*Task: Create a visualization that provides a breakdown between the male and female employees
+working in the company each year, starting from 1990.*/
+
+select year(de.from_date) as calendar_year, e.gender, count(e.emp_no) as gen
 from t_employees e
 join t_dept_emp de
 on de.emp_no = e.emp_no
-group by yer, e.gender
-order by yer;
+group by calendar_year, e.gender
+having calendar_year >= 1990
+order by calendar_year;
 
-select count(*) from t_dept_emp where year(from_date) = '1986';
-
-select de.emp_no, de.from_date, e.emp_no, e.first_name, e.gender
-from t_dept_emp de
-join t_employees e
-on de.emp_no = e.emp_no
-having year(de.from_date) = '1986'
-order by de.from_date;
